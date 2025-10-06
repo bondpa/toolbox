@@ -17,7 +17,34 @@ def main():
         choice = input("Välj ett alternativ: ")
 
         if choice == "1":
-            print("Välj hashtyp")
+            print("\nVälj hash-typ:")
+            print("1. MD5")
+            print("2. SHA1")
+            print("3. SHA256")
+            print("4. SHA512")
+            print("5. NTLM")
+            print("6. bcrypt")
+            print("7. argon2")
+
+            ht_choice = input("\nVälj hashtyp (1-7): ").strip()
+
+            if ht_choice == "1":
+                selected_hash = "MD5"
+            elif ht_choice == "2":
+                selected_hash = "SHA1"
+            elif ht_choice == "3":
+                selected_hash = "SHA256"
+            elif ht_choice == "4":
+                selected_hash = "SHA512"
+            elif ht_choice == "5":
+                selected_hash = "NTLM"
+            elif ht_choice == "6":
+                selected_hash = "bcrypt"
+            elif ht_choice == "7":
+                selected_hash = "argon2"
+            else:
+                print("Ogiltigt val, försök igen.")
+                continue
         elif choice == "2":
             print("Ange hashvärde")
         elif choice == "3":
