@@ -4,6 +4,7 @@
 # 2. dekrypterar en krypterad fil och återställer originalet
 
 import argparse
+import sys
 from cryptography.fernet import Fernet
 
 def encrypt(file_path, key):
@@ -63,5 +64,13 @@ def main():
         decrypt(args.file, args.key)
 
 
+def main_menu():
+    print("Huvudmeny")
+    print("ska göras klart senare")
+
+
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) == 1:
+        main_menu()
+    else:
+        main()
