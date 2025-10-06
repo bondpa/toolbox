@@ -95,6 +95,11 @@ def main_menu():
         elif choice == '3':
             key_path = input("Filnamn för nyckelfil (enter för 'secret.key'): ") or "secret.key"
             generate_key(key_path)
+        elif choice == '4':
+            if file_path and key_path:
+                encrypt(file_path, key_path)
+            else:
+                print("Ange nyckel samt fil före kryptering.")
         elif choice == '6':
             print("Avslutar...")
             break
