@@ -65,9 +65,30 @@ def main():
 
 
 def main_menu():
-    print("Huvudmeny")
-    print("ska göras klart senare")
+    file_path = ""
+    key_path = "secret.key"
 
+    print("Huvudmeny")
+    while True:
+        print("\n=== Krypterings/Dekrypteringsverktyg ===")
+        if file_path:
+            print(f"Vald fil: {file_path}")
+        if key_path:
+            print(f"Vald nyckel: {key_path}")
+        print("\n1. Ange filsökväg")
+        print("2. Ange nyckelsökväg")
+        print("3. Generera ny nyckel")
+        print("4. Kryptera fil")
+        print("5. Dekryptera fil")
+        print("6. Avsluta")
+        
+        choice = input("\nVälj alternativ: ")
+
+        if choice == '6':
+            print("Avslutar...")
+            break
+        else:
+            print("Ogiltigt val. Försök igen.")
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
