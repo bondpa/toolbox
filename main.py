@@ -1,12 +1,13 @@
 import cryptotool.crypto_tool as ct
 import portscanner.portscanner as ps
+import hashcracker.hashcracker as hc
 
 def menu():
     while True:
         print("\n===== IT-säkerhetsverktyg =====")
         print("1. Portscanner")
         print("2. Krypteringsverktyg")
-        print("3. Subdomain Enumeration")
+        print("3. Hash cracker")
         print("0. Avsluta")
         choice = input("Välj ett verktyg (0-3): ")
 
@@ -19,8 +20,8 @@ def menu():
             ct.main_menu()
             
         elif choice == "3":
-            print("subdomain enumeration")
-            input()
+            print("Hash cracker")
+            hc.main()
             
         elif choice == "0":
             print("Avslutar programmet. Hej då!")
