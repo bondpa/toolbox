@@ -1,3 +1,6 @@
+import cryptotool.crypto_tool as ct
+import portscanner.portscanner as ps
+
 def menu():
     while True:
         print("\n===== IT-säkerhetsverktyg =====")
@@ -9,11 +12,11 @@ def menu():
 
         if choice == "1":
             print("portscanner")
-            input()
+            ps.main("", "")
             
         elif choice == "2":
             print("krypteringsverktyg")
-            input()
+            ct.main_menu()
             
         elif choice == "3":
             print("subdomain enumeration")
