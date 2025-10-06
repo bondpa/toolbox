@@ -1,0 +1,4 @@
+cffi==2.0.0
+cryptography==46.0.2
+pycparser==2.23
+python-nmap==0.7.1
