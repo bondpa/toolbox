@@ -49,6 +49,11 @@ def decrypt(file_path, key):
 
     print(f"Dekrypterad fil sparad som {dec_file_path}")
 
+def generate_key(key_path):
+    # TBD: move from generate_key.py
+    pass
+
+
 
 def main():
     parser = argparse.ArgumentParser(description="Kryptera eller dekryptera fil")
@@ -87,6 +92,9 @@ def main_menu():
             file_path = input("Ange fil att kryptera/dekryptera: ")
         elif choice == '2':
             key_path = input("Ange nyckelfil: ")
+        elif choice == '3':
+            key_path = input("Filnamn för nyckelfil (enter för 'secret.key'): ") or "secret.key"
+            generate_key(key_path)
         if choice == '6':
             print("Avslutar...")
             break
