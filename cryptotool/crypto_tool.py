@@ -100,6 +100,11 @@ def main_menu():
                 encrypt(file_path, key_path)
             else:
                 print("Ange nyckel samt fil före kryptering.")
+        elif choice == '5':
+            if file_path and key_path:
+                decrypt(file_path, key_path)
+            else:
+                print("Ange nyckel samt fil före dekryptering.")
         elif choice == '6':
             print("Avslutar...")
             break
