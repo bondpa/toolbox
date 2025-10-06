@@ -95,7 +95,7 @@ def main_menu():
         elif choice == '3':
             key_path = input("Filnamn för nyckelfil (enter för 'secret.key'): ") or "secret.key"
             generate_key(key_path)
-        if choice == '6':
+        elif choice == '6':
             print("Avslutar...")
             break
         else:
