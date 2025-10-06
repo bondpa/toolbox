@@ -50,9 +50,9 @@ def decrypt(file_path, key):
     print(f"Dekrypterad fil sparad som {dec_file_path}")
 
 def generate_key(key_path):
-    # TBD: move from generate_key.py
-    pass
-
+    key = Fernet.generate_key()
+    with open(key_path, "wb") as key_file:
+        key_file.write(key)
 
 
 def main():
