@@ -83,7 +83,10 @@ def main_menu():
         print("6. Avsluta")
         
         choice = input("\nVälj alternativ: ")
-
+        if choice == '1':
+            file_path = input("Ange fil att kryptera/dekryptera: ")
+        elif choice == '2':
+            key_path = input("Ange nyckelfil: ")
         if choice == '6':
             print("Avslutar...")
             break
