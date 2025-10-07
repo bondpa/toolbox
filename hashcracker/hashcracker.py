@@ -23,6 +23,7 @@ def main():
         print("2. Ange hashvärde")
         print("3. Välj ordlista")
         print("4. Starta knäckning")
+        print("5. Hasha ett lösenord")
         print("0. Avsluta")
         choice = input("Välj ett alternativ: ")
 
@@ -73,6 +74,13 @@ def main():
                 print("Du måste ange både hashtyp och hashvärde innan du kan starta knäckning.")
                 continue
             print(f"Startar knäckning av {selected_hash} hash: {hash_value} med ordlista {wordlist}")
+        elif choice == "5":
+            pwd = input("Ange lösenord att hasha: ").strip()
+            if not pwd:
+                print("Lösenord kan inte vara tomt.")
+                continue
+            hashed_pwd = hash_password(pwd, selected_hash)
+            print(f"{selected_hash}-hash av '{pwd}' är: {hashed_pwd}")
         elif choice == "0":
             print("Avslutar Hash Cracker.")
             break
