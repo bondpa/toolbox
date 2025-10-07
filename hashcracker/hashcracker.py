@@ -1,3 +1,13 @@
+import hashlib
+
+def hash_password(password, hash_type="MD5"):
+    if hash_type == "MD5":
+        return hashlib.md5(password.encode()).hexdigest()
+
+    return None  
+
+
+
 def main():
     # visar meny där vald typ av hash samt angivet hashvärde visas
     selected_hash = False
