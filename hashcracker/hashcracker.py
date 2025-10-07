@@ -75,6 +75,9 @@ def main():
                 continue
             print(f"Startar knäckning av {selected_hash} hash: {hash_value} med ordlista {wordlist}")
         elif choice == "5":
+            if not selected_hash:
+                print("Hashtyp kan inte vara tomt.")
+                continue
             pwd = input("Ange lösenord att hasha: ").strip()
             if not pwd:
                 print("Lösenord kan inte vara tomt.")
