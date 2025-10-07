@@ -1,5 +1,8 @@
 import hashlib
 from passlib.hash import nthash
+import bcrypt
+from argon2 import PasswordHasher
+
 
 def hash_password(password, hash_type="MD5"):
     if hash_type == "MD5":
@@ -12,6 +15,15 @@ def hash_password(password, hash_type="MD5"):
         return hashlib.sha512(password.encode()).hexdigest()
     elif hash_type == "NTLM": 
         return nthash.hash(password)
+    elif hash_type == "bcrypt": # https://www.geeksforgeeks.org/python/hashing-passwords-in-python-with-bcrypt/
+        bytes = password.encode('utf-8')
+        salt = bcrypt.gensalt()
+        hash = bcrypt.hashpw(bytes, salt)
+        return hash.decode('utf-8')
+    elif hash_type == "argon2": # https://stackoverflow.com/questions/58431973/argon2-library-that-hashes-passwords-without-a-secret-and-with-a-random-salt-tha
+        ph = PasswordHasher()
+        return ph.hash(password)
+
     return None  
 
 
