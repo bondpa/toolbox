@@ -41,6 +41,8 @@ def verify_password(password, hash_value, hash_type):
     raise NotImplementedError("Verification not implemented for this hash type.")
 
 
+def crack_with_wordlist(hash_value, selected_hash, wordlist):
+    print(f"Knäcker {selected_hash} hash: {hash_value} med ordlista {wordlist}")
 
 def main():
     # visar meny där vald typ av hash samt angivet hashvärde visas
@@ -109,6 +111,11 @@ def main():
                 print("Du måste ange både hashtyp och hashvärde innan du kan starta knäckning.")
                 continue
             print(f"Startar knäckning av {selected_hash} hash: {hash_value} med ordlista {wordlist}")
+            crack_result =  crack_with_wordlist(hash_value, selected_hash, wordlist)
+            if crack_result:
+                print(f"Lösenord hittat: {crack_result}")
+            else:
+                print("Lösenord hittades inte i ordlistan.")
         elif choice == "5":
             if not selected_hash:
                 print("Hashtyp kan inte vara tomt.")
