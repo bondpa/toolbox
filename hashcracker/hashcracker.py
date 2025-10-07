@@ -27,7 +27,9 @@ def hash_password(password, hash_type="MD5"):
     return None  
 
 def verify_password(password, hash_value, hash_type):
-    return True
+    if hash_type == "MD5" or hash_type == "SHA1" or hash_type == "SHA256" or hash_type == "SHA512" or hash_type == "NTLM":
+        return hash_password(password, hash_type) == hash_value
+    raise NotImplementedError("Verification not implemented for this hash type.")
 
 
 
