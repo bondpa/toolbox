@@ -3,7 +3,12 @@ import hashlib
 def hash_password(password, hash_type="MD5"):
     if hash_type == "MD5":
         return hashlib.md5(password.encode()).hexdigest()
-
+    elif hash_type == "SHA1":
+        return hashlib.sha1(password.encode()).hexdigest()
+    elif hash_type == "SHA256":
+        return hashlib.sha256(password.encode()).hexdigest()
+    elif hash_type == "SHA512":
+        return hashlib.sha512(password.encode()).hexdigest()
     return None  
 
 
