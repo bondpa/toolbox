@@ -1,4 +1,5 @@
 import hashlib
+from passlib.hash import nthash
 
 def hash_password(password, hash_type="MD5"):
     if hash_type == "MD5":
@@ -9,6 +10,8 @@ def hash_password(password, hash_type="MD5"):
         return hashlib.sha256(password.encode()).hexdigest()
     elif hash_type == "SHA512":
         return hashlib.sha512(password.encode()).hexdigest()
+    elif hash_type == "NTLM": 
+        return nthash.hash(password)
     return None  
 
 
