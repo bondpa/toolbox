@@ -42,7 +42,14 @@ def verify_password(password, hash_value, hash_type):
 
 
 def crack_with_wordlist(hash_value, selected_hash, wordlist):
-    print(f"Knäcker {selected_hash} hash: {hash_value} med ordlista {wordlist}")
+    with open(wordlist, 'r') as f:
+        for password in f:
+            password = password.strip()
+            if verify_password(password, hash_value, selected_hash):
+                return password  # Hittat!
+    return None  # Inte hittat
+
+
 
 def main():
     # visar meny där vald typ av hash samt angivet hashvärde visas
