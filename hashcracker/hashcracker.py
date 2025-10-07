@@ -31,6 +31,13 @@ def verify_password(password, hash_value, hash_type):
         return hash_password(password, hash_type) == hash_value
     elif hash_type == "bcrypt":
         return bcrypt.checkpw(password.encode('utf-8'), hash_value.encode('utf-8'))
+    elif hash_type == "argon2":
+        ph = PasswordHasher()
+        try:
+            ph.verify(hash_value, password)
+            return True
+        except:
+            return False
     raise NotImplementedError("Verification not implemented for this hash type.")
 
 
