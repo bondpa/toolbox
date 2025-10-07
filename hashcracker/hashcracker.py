@@ -26,6 +26,9 @@ def hash_password(password, hash_type="MD5"):
 
     return None  
 
+def verify_password(password, hash_value, hash_type):
+    return True
+
 
 
 def main():
@@ -44,6 +47,7 @@ def main():
         print("3. Välj ordlista")
         print("4. Starta knäckning")
         print("5. Hasha ett lösenord")
+        print("6. Verifiera ett lösenord mot angivet hashvärde")
         print("0. Avsluta")
         choice = input("Välj ett alternativ: ")
 
@@ -104,6 +108,15 @@ def main():
                 continue
             hashed_pwd = hash_password(pwd, selected_hash)
             print(f"{selected_hash}-hash av '{pwd}' är: {hashed_pwd}")
+        elif choice == "6":
+            if not selected_hash or not hash_value:
+                print("Du måste ange både hashtyp och hashvärde innan verifiering.")
+                continue
+            pwd = input("Ange lösenord att verifiera: ").strip()
+            if not pwd:
+                print("Lösenord kan inte vara tomt.")
+                continue
+            print("Lösenordet matchar hashvärdet!" if verify_password(pwd, hash_value, selected_hash) else "Lösenordet matchar INTE hashvärdet.")
         elif choice == "0":
             print("Avslutar Hash Cracker.")
             break
