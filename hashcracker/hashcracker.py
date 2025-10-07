@@ -29,6 +29,8 @@ def hash_password(password, hash_type="MD5"):
 def verify_password(password, hash_value, hash_type):
     if hash_type == "MD5" or hash_type == "SHA1" or hash_type == "SHA256" or hash_type == "SHA512" or hash_type == "NTLM":
         return hash_password(password, hash_type) == hash_value
+    elif hash_type == "bcrypt":
+        return bcrypt.checkpw(password.encode('utf-8'), hash_value.encode('utf-8'))
     raise NotImplementedError("Verification not implemented for this hash type.")
 
 
