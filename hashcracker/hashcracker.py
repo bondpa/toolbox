@@ -46,7 +46,11 @@ def main():
                 print("Ogiltigt val, försök igen.")
                 continue
         elif choice == "2":
-            print("Ange hashvärde")
+            hash_value = input("Ange hashvärde: ").strip()
+            if not hash_value:
+                print("Hashvärde kan inte vara tomt.")
+                hash_value = False
+                continue
         elif choice == "3":
             print("Välj ordlista")
         elif choice == "4":
