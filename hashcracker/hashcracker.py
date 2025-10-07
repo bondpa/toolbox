@@ -52,7 +52,12 @@ def main():
                 hash_value = False
                 continue
         elif choice == "3":
-            print("Välj ordlista")
+            wl_choice = input("Ange sökväg till ordlista (standard: rockyou.txt): ").strip()
+            if wl_choice:
+                wordlist = wl_choice
+            else:
+                wordlist = "rockyou.txt"
+            print(f"Ordlista satt till: {wordlist}")
         elif choice == "4":
             if not selected_hash or not hash_value:
                 print("Du måste ange både hashtyp och hashvärde innan du kan starta knäckning.")
