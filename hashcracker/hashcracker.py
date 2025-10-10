@@ -188,6 +188,9 @@ def main():
     parser.add_argument("--type", "-t", help="Hashtyp (MD5, SHA1, SHA256, SHA512, NTLM, bcrypt, argon2)")
     parser.add_argument("--wordlist", "-w", default="rockyou.txt", help="Ordlista (standard: rockyou.txt)")
     parser.add_argument("--crack", "-c", action="store_true", help="Starta knäckning")
+    parser.add_argument("--hash-password", help="Hasha ett lösenord")
+    parser.add_argument("--identify", action="store_true", help="Identifiera hashtyp med AI (kräver Ollama)")
+    
     args = parser.parse_args()
 
     if args.crack:
