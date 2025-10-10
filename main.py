@@ -21,7 +21,7 @@ def menu():
             
         elif choice == "3":
             print("Hash cracker")
-            hc.main()
+            hc.main_menu()
             
         elif choice == "0":
             print("Avslutar programmet. Hej då!")
