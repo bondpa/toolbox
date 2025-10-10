@@ -43,7 +43,7 @@ def main_menu(host, ports):
         print("4. Starta skanning")
         print("5. Spara resultat till JSON-fil")
         print("6. Spara resultat till textfil")
-        print("7. Avsluta")
+        print("0. Avsluta")
 
         choice = input("Välj alternativ: ")
 
@@ -96,7 +96,7 @@ def main_menu(host, ports):
                 print(f"Resultatet sparades i {filename}")
             else:
                 print("Inget resultat att spara. Kör en skanning först.")
-        elif choice == '7':
+        elif choice == '0':
             print("Avslutar...")
             break
         else:

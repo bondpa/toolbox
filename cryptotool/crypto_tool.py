@@ -91,7 +91,7 @@ def main_menu():
         print("3. Generera ny nyckel")
         print("4. Kryptera fil")
         print("5. Dekryptera fil")
-        print("6. Avsluta")
+        print("0. Avsluta")
         
         choice = input("\nVälj alternativ: ")
         if choice == '1':
@@ -111,7 +111,7 @@ def main_menu():
                 decrypt(file_path, key_path)
             else:
                 print("Ange nyckel samt fil före dekryptering.")
-        elif choice == '6':
+        elif choice == '0':
             print("Avslutar...")
             break
         else:
