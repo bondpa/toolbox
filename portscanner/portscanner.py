@@ -182,7 +182,6 @@ def main():
                     for port in lport:
                         string_to_save += 'port: %s\tstatus: %s\tnamn: %s\tprodukt: %s\tversion: %s\n' % (port, nm[h][proto][port]['state'], nm[h][proto][port]['name'], nm[h][proto][port]['product'], nm[h][proto][port]['version'])
             save_to_textfile(string_to_save, args.output_text)
-            print(f"Resultatet sparades i {args.output_text}")
 
 if __name__ == "__main__":
     host = ""
