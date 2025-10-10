@@ -13,7 +13,7 @@ def menu():
 
         if choice == "1":
             print("portscanner")
-            ps.main("", "")
+            ps.main_menu("", "")
             
         elif choice == "2":
             print("krypteringsverktyg")
