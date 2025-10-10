@@ -195,6 +195,16 @@ def main():
             print("Fel: --hash och --type måste anges för att starta knäckning")
             parser.print_help()
             return
+        
+        print(f"Startar knäckning av {args.type} hash: {args.hash}")
+        print(f"Använder ordlista: {args.wordlist}")
+    
+        result = crack_with_wordlist(args.hash, args.type, args.wordlist)
+    
+        if result:
+            print(f"\n✓ Lösenord hittat: {result}")
+        else:
+            print("\n✗ Lösenord hittades inte i ordlistan.")
 
 
 if __name__ == "__main__":
