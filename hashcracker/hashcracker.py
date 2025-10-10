@@ -7,6 +7,13 @@ import requests
 import argparse
 import sys
 
+# Färgkoder för terminal
+GREEN = '\033[92m'
+RED = '\033[91m'
+YELLOW = '\033[93m'
+BLUE = '\033[94m'
+RESET = '\033[0m'
+
 def hash_password(password, hash_type="MD5"):
     if hash_type == "MD5":
         return hashlib.md5(password.encode()).hexdigest()
@@ -83,9 +90,19 @@ def main_menu():
 
     while True:
         print("\n===== Hash Cracker =====")
-        print("Hashtyp", selected_hash if selected_hash else "Du måste ange hashtyp")
-        print("Hashvärde: ", hash_value if hash_value else "Du måste ange hashvärde")
-        print("Ordlista: ", wordlist)
+
+        if selected_hash:
+            print(f"{GREEN}✓ Hashtyp: {selected_hash}{RESET}")
+        else:
+            print(f"{RED}✗ Ingen hashtyp vald{RESET}")
+        if hash_value:
+            print(f"{GREEN}✓ Hashvärde: {hash_value}{RESET}")
+        else:
+            print(f"{RED}✗ Inget hashvärde angivet{RESET}")
+        if wordlist:
+            print(f"{GREEN}✓ Ordlista: {wordlist}{RESET}")
+        else:
+            print(f"{RED}✗ Ingen ordlista vald{RESET}")
         print("1. Ange hashtyp (t.ex. MD5, SHA1, SHA256)")
         print("2. Ange hashvärde")
         print("3. Välj ordlista")
