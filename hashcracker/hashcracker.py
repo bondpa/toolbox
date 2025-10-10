@@ -62,10 +62,10 @@ def crack_with_wordlist(hash_value, selected_hash, wordlist):
                     return password # Hittat!
         return None # Inte hittat
     except FileNotFoundError:
-        print(f"Fel: Ordlistan {wordlist} hittades inte.")
+        print(f"{RED}Fel: Ordlistan {wordlist} hittades inte.{RESET}")
         return None
     except Exception as e:
-        print(f"Fel vid läsning av ordlista: {e}")
+        print(f"{RED}Fel vid läsning av ordlista: {e}{RESET}")
         return None
 
 def check_hash_type(hash_value):
@@ -84,10 +84,10 @@ def check_hash_type(hash_value):
         return response.json()["response"].strip()
         
     except requests.exceptions.ConnectionError:
-        print(f"Fel: Kunde inte ansluta till Ollama. Kontrollera att den körs på port 11434.")
+        print(f"{RED}Fel: Kunde inte ansluta till Ollama. Kontrollera att den körs på port 11434.{RESET}")
         return None
     except Exception as e:
-        print(f"Fel vid hashidentifiering: {e}")
+        print(f"{RED}Fel vid hashidentifiering: {e}{RESET}")
         return None
 
 
@@ -98,7 +98,7 @@ def main_menu():
     wordlist = "rockyou.txt"  
 
     while True:
-        print("\n===== Hash Cracker =====")
+        print(f"\n{BLUE}===== Hash Cracker ====={RESET}")
 
         if selected_hash:
             print(f"{GREEN}✓ Hashtyp: {selected_hash}{RESET}")
@@ -149,12 +149,12 @@ def main_menu():
             elif ht_choice == "7":
                 selected_hash = "argon2"
             else:
-                print("Ogiltigt val, försök igen.")
+                print(f"{RED}Ogiltigt val, försök igen.{RESET}")
                 continue
         elif choice == "2":
             hash_value = input("Ange hashvärde: ").strip()
             if not hash_value:
-                print("Hashvärde kan inte vara tomt.")
+                print(f"{RED}Hashvärde kan inte vara tomt.{RESET}")
                 hash_value = False
                 continue
         elif choice == "3":
@@ -163,45 +163,49 @@ def main_menu():
                 wordlist = wl_choice
             else:
                 wordlist = "rockyou.txt"
-            print(f"Ordlista satt till: {wordlist}")
+            print(f"{GREEN}✓ Ordlista satt till: {wordlist}{RESET}")
         elif choice == "4":
             if not selected_hash or not hash_value:
-                print("Du måste ange både hashtyp och hashvärde innan du kan starta knäckning.")
+                print(f"{YELLOW}⚠ Du måste ange både hashtyp och hashvärde innan du kan starta knäckning.{RESET}")
                 continue
             print(f"Startar knäckning av {selected_hash} hash: {hash_value} med ordlista {wordlist}")
             crack_result =  crack_with_wordlist(hash_value, selected_hash, wordlist)
             if crack_result:
-                print(f"Lösenord hittat: {crack_result}")
+                print(f"{GREEN}✓ Lösenord hittat: {crack_result}{RESET}")
             else:
-                print("Lösenord hittades inte i ordlistan.")
+                print(f"{YELLOW}⚠ Lösenord hittades inte i ordlistan.{RESET}")
         elif choice == "5":
             if not selected_hash:
-                print("Hashtyp kan inte vara tomt.")
+                print(f"{RED}Hashtyp kan inte vara tomt.{RESET}")
                 continue
             pwd = input("Ange lösenord att hasha: ").strip()
             if not pwd:
-                print("Lösenord kan inte vara tomt.")
+                print(f"{RED}Lösenord kan inte vara tomt.{RESET}")
                 continue
             hashed_pwd = hash_password(pwd, selected_hash)
-            print(f"{selected_hash}-hash av '{pwd}' är: {hashed_pwd}")
+            print(f"{GREEN}{selected_hash}-hash av '{pwd}' är: {hashed_pwd}{RESET}")
             use_hash = input("\nVill du använda denna hash som aktuellt hashvärde? (j/n): ").strip().lower()
             if use_hash == 'j' or use_hash == 'ja':
                 hash_value = hashed_pwd
-                print(f"Hashvärde uppdaterat till: {hash_value}")
+                print(f"{GREEN}✓ Hashvärde uppdaterat till: {hash_value}{RESET}")
         elif choice == "6":
             if not selected_hash or not hash_value:
-                print("Du måste ange både hashtyp och hashvärde innan verifiering.")
+                print(f"{YELLOW}⚠ Du måste ange både hashtyp och hashvärde innan verifiering.{RESET}")
                 continue
             pwd = input("Ange lösenord att verifiera: ").strip()
             if not pwd:
-                print("Lösenord kan inte vara tomt.")
+                print(f"{RED}Lösenord kan inte vara tomt.{RESET}")
                 continue
-            print("Lösenordet matchar hashvärdet!" if verify_password(pwd, hash_value, selected_hash) else "Lösenordet matchar INTE hashvärdet.")
+            print(f"{GREEN}✓ Lösenordet matchar hashvärdet!{RESET}" if verify_password(pwd, hash_value, selected_hash) else "Lösenordet matchar INTE hashvärdet.")
         elif choice == "7":
             if not hash_value:
-                print("Du måste ange ett hashvärde innan du kan testa.")
+                print(f"{YELLOW}⚠ Du måste ange ett hashvärde innan du kan testa.{RESET}")
                 continue
-            print(check_hash_type(hash_value))
+            identified = check_hash_type(hash_value)
+            if identified:
+                print(f"{GREEN}✓ Identifierad hashtyp: {identified}{RESET}")
+            else:
+                print(f"{YELLOW}⚠ Kunde inte identifiera hashtypen.{RESET}")
         elif choice == "0":
             print("Avslutar Hash Cracker.")
             break
