@@ -148,6 +148,19 @@ def main():
         if args.output:
             save_to_file(result, args.output)
 
+        if args.output_text:
+            string_to_save = "Resultat:\n"
+            for h in nm.all_hosts():
+                string_to_save += 'Värd : %s (%s)\n' % (h, nm[h].hostname())
+                string_to_save += 'State : %s\n' % nm[h].state()
+                for proto in nm[h].all_protocols():
+                    string_to_save += 'Protocol : %s\n' % proto
+                    lport = nm[h][proto].keys()
+                    for port in lport:
+                        string_to_save += 'port: %s\tstatus: %s\tnamn: %s\tprodukt: %s\tversion: %s\n' % (port, nm[h][proto][port]['state'], nm[h][proto][port]['name'], nm[h][proto][port]['product'], nm[h][proto][port]['version'])
+            save_to_textfile(string_to_save, args.output_text)
+            print(f"Resultatet sparades i {args.output_text}")
+
 if __name__ == "__main__":
     host = ""
     ports = ""
