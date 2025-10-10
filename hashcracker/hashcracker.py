@@ -133,6 +133,10 @@ def main():
                 continue
             hashed_pwd = hash_password(pwd, selected_hash)
             print(f"{selected_hash}-hash av '{pwd}' är: {hashed_pwd}")
+            use_hash = input("\nVill du använda denna hash som aktuellt hashvärde? (j/n): ").strip().lower()
+            if use_hash == 'j' or use_hash == 'ja':
+                hash_value = hashed_pwd
+                print(f"Hashvärde uppdaterat till: {hash_value}")
         elif choice == "6":
             if not selected_hash or not hash_value:
                 print("Du måste ange både hashtyp och hashvärde innan verifiering.")
