@@ -115,7 +115,6 @@ def main():
 
     if args.generate_key:
         generate_key(args.generate_key)
-        print(f"Nyckel genererad och sparad i {args.generate_key}")
     elif args.encrypt:
         encrypt(args.encrypt, args.key)
     elif args.decrypt:
