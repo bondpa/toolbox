@@ -11,6 +11,13 @@ import json
 import argparse 
 import sys
 
+# Färgkoder för terminal
+GREEN = '\033[92m'
+RED = '\033[91m'
+YELLOW = '\033[93m'
+BLUE = '\033[94m'
+RESET = '\033[0m'
+
 nm = nmap.PortScanner()
 
 def scan_hosts(host, ports):
@@ -32,11 +39,15 @@ def load_from_file(filename):
 
 def main_menu(host, ports):
     while True:
-        print("\nMeny:")
+        print("\n=== Portscanner ===")
         if host:
-            print(f"Vald värd: {host}")
+            print(f"{GREEN}✓ Vald värd: {host}{RESET}")
+        else:
+            print(f"{RED}✗ Ingen värd vald{RESET}")
         if ports:
-            print(f"Valda portar: {ports}")
+            print(f"{GREEN}✓ Valda portar: {ports}{RESET}")
+        else:
+            print(f"{RED}✗ Inga portar valda{RESET}")
         print("1. Ange värd manuellt")
         print("2. Ange port(ar) manuellt")
         print("3. Ladda värd och portar från JSON-fil")
