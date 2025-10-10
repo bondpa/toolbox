@@ -7,12 +7,12 @@ import requests
 import argparse
 import sys
 
-# Färgkoder för terminal
-GREEN = '\033[92m'
-RED = '\033[91m'
-YELLOW = '\033[93m'
-BLUE = '\033[94m'
-RESET = '\033[0m'
+# Färgkoder för terminal (ANSI escape codes)
+GREEN = '\033[92m'   # Lyckade operationer
+RED = '\033[91m'     # Felmeddelanden
+YELLOW = '\033[93m'  # Varningar
+BLUE = '\033[94m'    # Rubriker
+RESET = '\033[0m'    # Återställ färg
 
 def hash_password(password, hash_type="MD5"):
     if hash_type == "MD5":
@@ -50,10 +50,20 @@ def verify_password(password, hash_value, hash_type):
             except:
                 return False
     except Exception as e:
-        # Tyst felhantering - returnera bara False vid ogiltigt format
         return False
 
 def crack_with_wordlist(hash_value, selected_hash, wordlist):
+    """
+    Försöker knäcka en hash genom att testa lösenord från en ordlista.
+    
+    Args:
+        hash_value: Hash-strängen som ska knäckas
+        selected_hash: Hashtyp (MD5, SHA1, SHA256, SHA512, NTLM, bcrypt, argon2)
+        wordlist: Sökväg till ordlistefil
+        
+    Returns:
+        str: Hittat lösenord, eller None om inget matchade eller vid fel
+    """
     try:
         with open(wordlist, 'r') as f:
             for password in f:
@@ -69,6 +79,19 @@ def crack_with_wordlist(hash_value, selected_hash, wordlist):
         return None
 
 def check_hash_type(hash_value):
+    """
+    Identifierar hashtyp genom att fråga ett lokalt Ollama API.
+    Kräver att Ollama körs på localhost:11434 med modellen gpt-oss:120b.
+    
+    Args:
+        hash_value: Hash-strängen som ska identifieras
+        
+    Returns:
+        str: Identifierad hashtyp (MD5, SHA1, etc.), eller None vid fel
+        
+    Raises:
+        ValueError: Om hash_value är tomt
+    """
     if not hash_value:
         raise ValueError("Hashvärde kan inte vara tomt.")
     try:

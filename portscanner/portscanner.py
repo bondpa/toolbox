@@ -3,16 +3,26 @@ import json
 import argparse 
 import sys
 
-# Färgkoder för terminal
-GREEN = '\033[92m'
-RED = '\033[91m'
-YELLOW = '\033[93m'
-BLUE = '\033[94m'
-RESET = '\033[0m'
+# Färgkoder för terminal (ANSI escape codes)
+GREEN = '\033[92m'   # Lyckade operationer
+RED = '\033[91m'     # Felmeddelanden
+YELLOW = '\033[93m'  # Varningar
+BLUE = '\033[94m'    # Rubriker
+RESET = '\033[0m'    # Återställ färg
 
 nm = nmap.PortScanner()
 
 def scan_hosts(host, ports):
+    """
+    Skannar angivna portar på en värd med nmap.
+    
+    Args:
+        host: Värd att skanna (hostname eller IP-adress)
+        ports: Portar att skanna (t.ex. "80,443" eller "20-80")
+        
+    Returns:
+        dict: Nmap-resultat med information om öppna portar, eller None vid fel
+    """
     try:
         result = nm.scan(hosts=host, ports=ports)
         return result

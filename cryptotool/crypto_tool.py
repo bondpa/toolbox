@@ -7,14 +7,22 @@ import argparse
 import sys
 from cryptography.fernet import Fernet
 
-# Färgkoder för terminal
-GREEN = '\033[92m'
-RED = '\033[91m'
-YELLOW = '\033[93m'
-BLUE = '\033[94m'
-RESET = '\033[0m'
+# Färgkoder för terminal (ANSI escape codes)
+GREEN = '\033[92m'   # Lyckade operationer
+RED = '\033[91m'     # Felmeddelanden
+YELLOW = '\033[93m'  # Varningar
+BLUE = '\033[94m'    # Rubriker
+RESET = '\033[0m'    # Återställ färg
 
 def encrypt(file_path, key):
+    """
+    Krypterar en fil med Fernet (symmetrisk AES-128 kryptering).
+    Den krypterade filen sparas med .enc-suffix.
+    
+    Args:
+        file_path: Sökväg till filen som ska krypteras
+        key: Sökväg till nyckelfilen (Fernet-nyckel)
+    """
     print(f"Krypterar {file_path} med nyckeln {key}")
 
     try:
@@ -55,6 +63,14 @@ def encrypt(file_path, key):
     
 
 def decrypt(file_path, key):
+    """
+    Dekrypterar en Fernet-krypterad fil.
+    Den dekrypterade filen sparas med .dec-suffix.
+    
+    Args:
+        file_path: Sökväg till den krypterade filen
+        key: Sökväg till nyckelfilen (samma som användes vid kryptering)
+    """
     print(f"Dekrypterar {file_path} med nyckeln {key}")
 
     try:
@@ -96,6 +112,12 @@ def decrypt(file_path, key):
         print(f"{RED}Ett fel uppstod då dekrypterad fil skulle sparas: {e}{RESET}")
 
 def generate_key(key_path):
+    """
+    Genererar en ny Fernet-krypteringsnyckel och sparar till fil.
+    
+    Args:
+        key_path: Sökväg där nyckelfilen ska sparas
+    """
     try:
         key = Fernet.generate_key()
         with open(key_path, "wb") as key_file:
