@@ -68,6 +68,7 @@ def main():
         print("4. Starta knäckning")
         print("5. Hasha ett lösenord")
         print("6. Verifiera ett lösenord mot angivet hashvärde")
+        print("7. Testa att identifiera hashtyp från hashvärde")
         print("0. Avsluta")
         choice = input("Välj ett alternativ: ")
 
@@ -146,6 +147,11 @@ def main():
                 print("Lösenord kan inte vara tomt.")
                 continue
             print("Lösenordet matchar hashvärdet!" if verify_password(pwd, hash_value, selected_hash) else "Lösenordet matchar INTE hashvärdet.")
+        elif choice == "7":
+            if not hash_value:
+                print("Du måste ange ett hashvärde innan du kan testa.")
+                continue
+            print(check_hash_type(hash_value))
         elif choice == "0":
             print("Avslutar Hash Cracker.")
             break
