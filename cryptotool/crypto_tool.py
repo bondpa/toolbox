@@ -17,23 +17,41 @@ RESET = '\033[0m'
 def encrypt(file_path, key):
     print(f"Krypterar {file_path} med nyckeln {key}")
 
-    with open(file_path, "rb") as f:
-        file = f.read()
+    try:
+        with open(file_path, "rb") as f:
+            file = f.read()
+    except FileNotFoundError:
+        print(f"Fel: Filen {file_path} hittades inte.")
+        return
+    except Exception as e:
+        print(f"Fel vid läsning av fil: {e}")
+        return
 
-    with open(key, "rb") as k:
-        key = k.read()
+    try:
+        with open(key, "rb") as k:
+            key_data = k.read()
+    except FileNotFoundError:
+        print(f"Fel: Nyckelfilen {key} hittades inte.")
+        return
+    except Exception as e:
+        print(f"Fel vid läsning av nyckel: {e}")
+        return
     
-    fernet = Fernet(key)
-    enc_file = fernet.encrypt(file)
-
-    print(enc_file)
+    try:
+        fernet = Fernet(key_data)
+        enc_file = fernet.encrypt(file)
+    except Exception as e:
+        print(f"Fel vid kryptering (ogiltig nyckel?): {e}")
+        return
 
     enc_file_path = file_path + ".enc"
 
-    with open(enc_file_path, "wb") as f:
-        f.write(enc_file)
-
-    print(f"Krypterad fil sparad som {enc_file_path}")
+    try:
+        with open(enc_file_path, "wb") as f:
+            f.write(enc_file)
+        print(f"Krypterad fil sparad som {enc_file_path}")
+    except Exception as e:
+        print(f"Fel vid sparande av krypterad fil: {e}")
     
 
 def decrypt(file_path, key):
