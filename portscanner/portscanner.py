@@ -8,6 +8,8 @@ Example JSON input file:
 """
 import nmap
 import json
+import argparse 
+import sys
 
 nm = nmap.PortScanner()
 
@@ -28,7 +30,7 @@ def load_from_file(filename):
         data = json.load(file)
     return data
 
-def main(host, ports):
+def main_menu(host, ports):
     while True:
         print("\nMeny:")
         if host:
@@ -100,8 +102,15 @@ def main(host, ports):
         else:
             print("Ogiltigt val. Försök igen.")
 
+def main(host, ports):
+    # argparse implementation goes here
+    pass
+
 if __name__ == "__main__":
     host = ""
     ports = ""
     result = None
-    main(host, ports)
+    if len(sys.argv) == 1:
+        main_menu(host, ports)
+    else:
+        main(host, ports)
