@@ -7,6 +7,13 @@ import argparse
 import sys
 from cryptography.fernet import Fernet
 
+# Färgkoder för terminal
+GREEN = '\033[92m'
+RED = '\033[91m'
+YELLOW = '\033[93m'
+BLUE = '\033[94m'
+RESET = '\033[0m'
+
 def encrypt(file_path, key):
     print(f"Krypterar {file_path} med nyckeln {key}")
 
@@ -83,9 +90,14 @@ def main_menu():
     while True:
         print("\n=== Krypterings/Dekrypteringsverktyg ===")
         if file_path:
-            print(f"Vald fil: {file_path}")
+            print(f"{GREEN}✓ Vald fil: {file_path}{RESET}")
+        else:
+            print(f"{RED}✗ Ingen fil vald{RESET}")
+            
         if key_path:
-            print(f"Vald nyckel: {key_path}")
+            print(f"{GREEN}✓ Vald nyckel: {key_path}{RESET}")
+        else:
+            print(f"{RED}✗ Ingen nyckel vald{RESET}")
         print("\n1. Ange filsökväg")
         print("2. Ange nyckelsökväg")
         print("3. Generera ny nyckel")
