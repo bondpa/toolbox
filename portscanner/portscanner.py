@@ -1,11 +1,3 @@
-"""
-Example JSON input file:
-
-{
-    "host": "bondpa.se",
-    "ports": "22, 80, 443"
-}
-"""
 import nmap
 import json
 import argparse 
