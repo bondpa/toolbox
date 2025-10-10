@@ -196,7 +196,7 @@ def main_menu():
             if not pwd:
                 print(f"{RED}Lösenord kan inte vara tomt.{RESET}")
                 continue
-            print(f"{GREEN}✓ Lösenordet matchar hashvärdet!{RESET}" if verify_password(pwd, hash_value, selected_hash) else "Lösenordet matchar INTE hashvärdet.")
+            print(f"{GREEN}✓ Lösenordet matchar hashvärdet!{RESET}" if verify_password(pwd, hash_value, selected_hash) else f"{RED}✗ Lösenordet matchar INTE hashvärdet.{RESET}")
         elif choice == "7":
             if not hash_value:
                 print(f"{YELLOW}⚠ Du måste ange ett hashvärde innan du kan testa.{RESET}")
