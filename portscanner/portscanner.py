@@ -111,13 +111,28 @@ def main():
     parser.add_argument("--output-text", "-t", help="Spara resultat till textfil")
     args = parser.parse_args()
 
-    if not args.host or not args.ports:
-        print("Fel: Både --host och --ports måste anges")
+    host = ""
+    ports = ""
+
+    if args.input:
+        data = load_from_file(args.input)
+        if data:
+            host = data.get('host', '')
+            ports = data.get('ports', '')
+            print(f"Laddade från {args.input}: värd={host}, portar={ports}")
+
+    if not host and args.host:
+        host = args.host
+    if not ports and args.ports:
+        ports = args.ports
+
+    if not host or not ports:
+        print("Fel: Både --host och --ports måste anges (eller --input med båda värdena)")
         parser.print_help()
         return
     
-    print(f"Skannar {args.host} på port(ar) {args.ports}")
-    result = scan_hosts(args.host, args.ports)
+    print(f"Skannar {host} på port(ar) {ports}")
+    result = scan_hosts(host, ports)
     
     if result:
         print("Resultat:")

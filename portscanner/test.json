@@ -1,0 +1,4 @@
+{
+    "host": "example.com",
+    "ports": "80,443"
+}
