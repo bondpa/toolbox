@@ -21,8 +21,12 @@ RESET = '\033[0m'
 nm = nmap.PortScanner()
 
 def scan_hosts(host, ports):
-    result = nm.scan(hosts=host, ports=ports)
-    return result
+    try:
+        result = nm.scan(hosts=host, ports=ports)
+        return result
+    except Exception as e:
+        print(f"Fel vid skanning: {e}")
+        return None
 
 def save_to_file(result, filename):
     with open(filename, 'w') as file:
