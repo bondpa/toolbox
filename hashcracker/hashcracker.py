@@ -208,6 +208,16 @@ def main():
             print("Kunde inte identifiera hashtypen")
         return
 
+    if args.hash_password:
+        if not args.type:
+            print("Fel: --type måste anges för att hasha ett lösenord")
+            parser.print_help()
+            return
+    
+        hashed = hash_password(args.hash_password, args.type)
+        print(f"\n{args.type}-hash av '{args.hash_password}':")
+        print(hashed)
+        return
 
     if args.crack:
         if not args.hash or not args.type:
