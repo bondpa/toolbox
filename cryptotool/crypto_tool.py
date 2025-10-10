@@ -57,17 +57,23 @@ def generate_key(key_path):
 
 def main():
     parser = argparse.ArgumentParser(description="Kryptera eller dekryptera fil")
-    parser.add_argument("action", choices=["encrypt", "decrypt"], help="Kryptera eller dekryptera filen")
-    parser.add_argument("file", help="Sökväg till filen")
-    parser.add_argument("key", default="secret.key", help="Sökväg till nyckeln")
+    parser.add_argument("--encrypt", help="Fil att kryptera")
+    parser.add_argument("--decrypt", help="Fil att dekryptera")
+    parser.add_argument("--key", default="secret.key", help="Nyckel att använda (standard: secret.key)")
+    parser.add_argument("--generate-key", help="Generera ny nyckel och spara till fil")
 
     args = parser.parse_args()
 
-    if args.action == "encrypt":
-        encrypt(args.file, args.key)
-    elif args.action == "decrypt":
-        decrypt(args.file, args.key)
-
+    if args.generate_key:
+        generate_key(args.generate_key)
+        print(f"Nyckel genererad och sparad i {args.generate_key}")
+    elif args.encrypt:
+        encrypt(args.encrypt, args.key)
+    elif args.decrypt:
+        decrypt(args.decrypt, args.key)
+    else:
+        print("Fel: Du måste ange antingen --encrypt, --decrypt eller --generate-key")
+        parser.print_help()
 
 def main_menu():
     file_path = ""
