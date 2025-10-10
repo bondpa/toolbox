@@ -106,6 +106,9 @@ def main():
     parser = argparse.ArgumentParser(description="Skanna portar på en värd")
     parser.add_argument("--host", "-H", help="Värd att skanna (t.ex. example.com)")
     parser.add_argument("--ports", "-p", help="Port(ar) att skanna (t.ex. 80 eller 20-80)")
+    parser.add_argument("--input", "-i", help="Ladda värd och portar från JSON-fil")
+    parser.add_argument("--output", "-o", help="Spara resultat till JSON-fil")
+    parser.add_argument("--output-text", "-t", help="Spara resultat till textfil")
     args = parser.parse_args()
 
     if not args.host or not args.ports:
