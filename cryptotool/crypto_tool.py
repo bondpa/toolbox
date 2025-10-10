@@ -128,9 +128,8 @@ def main_menu():
     file_path = ""
     key_path = "secret.key"
 
-    print("Huvudmeny")
     while True:
-        print("\n=== Krypterings/Dekrypteringsverktyg ===")
+        print(f"\n{BLUE}=== Krypterings/Dekrypteringsverktyg ==={RESET}")
         if file_path:
             print(f"{GREEN}✓ Vald fil: {file_path}{RESET}")
         else:
@@ -159,17 +158,17 @@ def main_menu():
             if file_path and key_path:
                 encrypt(file_path, key_path)
             else:
-                print("Ange nyckel samt fil före kryptering.")
+                print(f"{YELLOW}⚠ Ange nyckel samt fil före kryptering.{RESET}")
         elif choice == '5':
             if file_path and key_path:
                 decrypt(file_path, key_path)
             else:
-                print("Ange nyckel samt fil före dekryptering.")
+                print(f"{YELLOW}⚠ Ange nyckel samt fil före dekryptering.{RESET}")
         elif choice == '0':
             print("Avslutar...")
             break
         else:
-            print("Ogiltigt val. Försök igen.")
+            print(f"{RED}Ogiltigt val. Försök igen.{RESET}")
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
