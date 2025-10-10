@@ -83,11 +83,11 @@ def check_hash_type(hash_value):
         )
         return response.json()["response"].strip()
         
+    except requests.exceptions.ConnectionError:
+        print(f"Fel: Kunde inte ansluta till Ollama. Kontrollera att den körs på port 11434.")
+        return None
     except Exception as e:
-        print("Status kod:", response.status_code)
-        print("Helt svar:")
-        print(response.json())
-        print(f"Kunde inte identifiera hashtyp: {e}")
+        print(f"Fel vid hashidentifiering: {e}")
         return None
 
 
