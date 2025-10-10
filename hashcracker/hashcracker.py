@@ -52,12 +52,19 @@ def verify_password(password, hash_value, hash_type):
 
 
 def crack_with_wordlist(hash_value, selected_hash, wordlist):
-    with open(wordlist, 'r') as f:
-        for password in f:
-            password = password.strip()
-            if verify_password(password, hash_value, selected_hash):
-                return password  # Hittat!
-    return None  # Inte hittat
+    try:
+        with open(wordlist, 'r') as f:
+            for password in f:
+                password = password.strip()
+                if verify_password(password, hash_value, selected_hash):
+                    return password # Hittat!
+        return None # Inte hittat
+    except FileNotFoundError:
+        print(f"Fel: Ordlistan {wordlist} hittades inte.")
+        return None
+    except Exception as e:
+        print(f"Fel vid läsning av ordlista: {e}")
+        return None
 
 def check_hash_type(hash_value):
     if not hash_value:
