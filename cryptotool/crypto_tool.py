@@ -95,12 +95,14 @@ def decrypt(file_path, key):
     except Exception as e:
         print(f"Fel vid sparande av dekrypterad fil: {e}")
 
-
 def generate_key(key_path):
-    key = Fernet.generate_key()
-    with open(key_path, "wb") as key_file:
-        key_file.write(key)
-
+    try:
+        key = Fernet.generate_key()
+        with open(key_path, "wb") as key_file:
+            key_file.write(key)
+        print(f"Nyckel genererad och sparad i {key_path}")
+    except Exception as e:
+        print(f"Fel vid generering av nyckel: {e}")
 
 def main():
     parser = argparse.ArgumentParser(description="Kryptera eller dekryptera fil")
