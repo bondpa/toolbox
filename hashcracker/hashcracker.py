@@ -185,6 +185,9 @@ def main_menu():
 def main():
     parser = argparse.ArgumentParser(description="Knäck hashade lösenord")
     parser.add_argument("--hash", "-H", help="Hashvärde att cracka")
+    parser.add_argument("--type", "-t", help="Hashtyp (MD5, SHA1, SHA256, SHA512, NTLM, bcrypt, argon2)")
+    parser.add_argument("--wordlist", "-w", default="rockyou.txt", help="Ordlista (standard: rockyou.txt)")
+    parser.add_argument("--crack", "-c", action="store_true", help="Starta knäckning")
     args = parser.parse_args()
 
 
