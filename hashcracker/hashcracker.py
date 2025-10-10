@@ -1,7 +1,9 @@
 import hashlib
+from urllib import response
 from passlib.hash import nthash
 import bcrypt
 from argon2 import PasswordHasher
+import requests
 
 
 def hash_password(password, hash_type="MD5"):
@@ -52,7 +54,24 @@ def crack_with_wordlist(hash_value, selected_hash, wordlist):
 def check_hash_type(hash_value):
     if not hash_value:
         raise ValueError("Hashvärde kan inte vara tomt.")
-    return "MD5"
+    try:
+        response = requests.post(
+            "http://localhost:11434/api/generate",
+            json={
+                "model": "gpt-oss:120b",
+                "prompt": f"Identify this hash type. Return ONLY one word: MD5, SHA1, SHA256, SHA512, NTLM, bcrypt, or argon2\n\nHash: {hash_value}",
+                "stream": False
+            },
+            timeout=30
+        )
+        return response.json()["response"].strip()
+        
+    except Exception as e:
+        print("Status kod:", response.status_code)
+        print("Helt svar:")
+        print(response.json())
+        print(f"Kunde inte identifiera hashtyp: {e}")
+        return None
 
 
 def main():
@@ -72,7 +91,7 @@ def main():
         print("4. Starta knäckning")
         print("5. Hasha ett lösenord")
         print("6. Verifiera ett lösenord mot angivet hashvärde")
-        print("7. Testa att identifiera hashtyp från hashvärde")
+        print("7. Testa att identifiera hashtyp från hashvärde. Denna funktion kräver att en lokal instans av GPT-OSS körs på port 11434")
         print("0. Avsluta")
         choice = input("Välj ett alternativ: ")
 
