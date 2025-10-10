@@ -49,6 +49,10 @@ def crack_with_wordlist(hash_value, selected_hash, wordlist):
                 return password  # Hittat!
     return None  # Inte hittat
 
+def check_hash_type(hash_value):
+    if not hash_value:
+        raise ValueError("Hashvärde kan inte vara tomt.")
+    return "MD5"
 
 
 def main():
