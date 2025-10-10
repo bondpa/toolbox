@@ -102,7 +102,6 @@ def main_menu(host, ports):
             if result:
                 filename = input("Ange JSON-fil för att spara resultatet: ")
                 save_to_file(result, filename)
-                print(f"Resultatet sparades i {filename}")
             else:
                 print(f"{YELLOW}⚠ Inget resultat att spara. Kör en skanning först.{RESET}")
         elif choice == '6':
@@ -118,7 +117,6 @@ def main_menu(host, ports):
                         for port in lport:
                             string_to_save += 'port: %s\tstatus: %s\tnamn: %s\tprodukt: %s\tversion: %s\n' % (port, nm[host][proto][port]['state'], nm[host][proto][port]['name'], nm[host][proto][port]['product'], nm[host][proto][port]['version'])
                 save_to_textfile(string_to_save, filename)
-                print(f"Resultatet sparades i {filename}")
             else:
                 print(f"{YELLOW}⚠ Inget resultat att spara. Kör en skanning först.{RESET}")
         elif choice == '0':
