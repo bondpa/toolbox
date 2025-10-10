@@ -29,10 +29,6 @@ def save_to_file(result, filename):
         print(f"{RED}Ett fel uppstod då filen skulle sparas: {e}{RESET}")
 
 def save_to_textfile(string_to_save, filename):
-    with open(filename, 'w') as file:
-        file.write(string_to_save)
-
-def save_to_textfile(string_to_save, filename):
     try:
         with open(filename, 'w') as file:
             file.write(string_to_save)
