@@ -21,27 +21,27 @@ def encrypt(file_path, key):
         with open(file_path, "rb") as f:
             file = f.read()
     except FileNotFoundError:
-        print(f"Fel: Filen {file_path} hittades inte.")
+        print(f"{RED}Fel: Filen {file_path} hittades inte.{RESET}")
         return
     except Exception as e:
-        print(f"Fel vid läsning av fil: {e}")
+        print(f"{RED}Fel vid läsning av fil: {e}{RESET}")
         return
 
     try:
         with open(key, "rb") as k:
             key_data = k.read()
     except FileNotFoundError:
-        print(f"Fel: Nyckelfilen {key} hittades inte.")
+        print(f"{RED}Fel: Nyckelfilen {key} hittades inte.{RESET}")
         return
     except Exception as e:
-        print(f"Fel vid läsning av nyckel: {e}")
+        print(f"{RED}Fel vid läsning av nyckel: {e}{RESET}")
         return
     
     try:
         fernet = Fernet(key_data)
         enc_file = fernet.encrypt(file)
     except Exception as e:
-        print(f"Fel vid kryptering (ogiltig nyckel?): {e}")
+        print(f"{RED}Fel vid kryptering (ogiltig nyckel?): {e}{RESET}")
         return
 
     enc_file_path = file_path + ".enc"
@@ -49,9 +49,9 @@ def encrypt(file_path, key):
     try:
         with open(enc_file_path, "wb") as f:
             f.write(enc_file)
-        print(f"Krypterad fil sparad som {enc_file_path}")
+        print(f"{GREEN}✓ Krypterad fil sparad som {enc_file_path}{RESET}")
     except Exception as e:
-        print(f"Fel vid sparande av krypterad fil: {e}")
+        print(f"{RED}Ett fel uppstod då krypterad fil skulle sparas: {e}{RESET}")
     
 
 def decrypt(file_path, key):
@@ -61,27 +61,27 @@ def decrypt(file_path, key):
         with open(file_path, "rb") as f:
             file = f.read()
     except FileNotFoundError:
-        print(f"Fel: Filen {file_path} hittades inte.")
+        print(f"{RED}Fel: Filen {file_path} hittades inte.{RESET}")
         return
     except Exception as e:
-        print(f"Fel vid läsning av fil: {e}")
+        print(f"{RED}Fel vid läsning av fil: {e}{RESET}")
         return
 
     try:
         with open(key, "rb") as k:
             key_data = k.read()
     except FileNotFoundError:
-        print(f"Fel: Nyckelfilen {key} hittades inte.")
+        print(f"{RED}Fel: Nyckelfilen {key} hittades inte.{RESET}")
         return
     except Exception as e:
-        print(f"Fel vid läsning av nyckel: {e}")
+        print(f"{RED}Fel vid läsning av nyckel: {e}{RESET}")
         return
     
     try:
         fernet = Fernet(key_data)
         dec_file = fernet.decrypt(file)
     except Exception as e:
-        print(f"Fel vid dekryptering (fel nyckel eller korrupt fil?): {e}")
+        print(f"{RED}Fel vid dekryptering (fel nyckel eller korrupt fil?): {e}{RESET}")
         return
     
     print(dec_file)
@@ -91,18 +91,18 @@ def decrypt(file_path, key):
     try:
         with open(dec_file_path, "wb") as f:
             f.write(dec_file)
-        print(f"Dekrypterad fil sparad som {dec_file_path}")
+        print(f"{GREEN}✓ Dekrypterad fil sparad som {dec_file_path}{RESET}")
     except Exception as e:
-        print(f"Fel vid sparande av dekrypterad fil: {e}")
+        print(f"{RED}Ett fel uppstod då dekrypterad fil skulle sparas: {e}{RESET}")
 
 def generate_key(key_path):
     try:
         key = Fernet.generate_key()
         with open(key_path, "wb") as key_file:
             key_file.write(key)
-        print(f"Nyckel genererad och sparad i {key_path}")
+        print(f"{GREEN}✓ Nyckel genererad och sparad i {key_path}{RESET}")
     except Exception as e:
-        print(f"Fel vid generering av nyckel: {e}")
+        print(f"{RED}Ett fel uppstod då nyckeln skulle genereras: {e}{RESET}")
 
 def main():
     parser = argparse.ArgumentParser(description="Kryptera eller dekryptera fil")
