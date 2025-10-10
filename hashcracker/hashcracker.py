@@ -184,7 +184,9 @@ def main_menu():
 
 def main():
     parser = argparse.ArgumentParser(description="Knäck hashade lösenord")
+    parser.add_argument("--hash", "-H", help="Hashvärde att cracka")
     args = parser.parse_args()
+
 
 
 if __name__ == "__main__":
