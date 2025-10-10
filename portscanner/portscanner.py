@@ -145,6 +145,8 @@ def main():
                 for port in lport:
                     print ('port: %s\tstatus: %s\tnamn: %s\tprodukt: %s\tversion: %s' % (port, nm[host][proto][port]['state'], nm[host][proto][port]['name'], nm[host][proto][port]['product'], nm[host][proto][port]['version']))
 
+        if args.output:
+            save_to_file(result, args.output)
 
 if __name__ == "__main__":
     host = ""
