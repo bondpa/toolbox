@@ -29,8 +29,12 @@ def scan_hosts(host, ports):
         return None
 
 def save_to_file(result, filename):
-    with open(filename, 'w') as file:
-        json.dump(result, file)
+    try:
+        with open(filename, 'w') as file:
+            json.dump(result, file)
+        print(f"Resultatet sparades i {filename}")
+    except Exception as e:
+        print(f"Ett fel uppstod då filen skulle sparas: {e}")
 
 def save_to_textfile(string_to_save, filename):
     with open(filename, 'w') as file:
