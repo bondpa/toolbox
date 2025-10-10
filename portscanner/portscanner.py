@@ -102,9 +102,31 @@ def main_menu(host, ports):
         else:
             print("Ogiltigt val. Försök igen.")
 
-def main(host, ports):
-    # argparse implementation goes here
-    pass
+def main():
+    parser = argparse.ArgumentParser(description="Skanna portar på en värd")
+    parser.add_argument("--host", "-H", help="Värd att skanna (t.ex. example.com)")
+    parser.add_argument("--ports", "-p", help="Port(ar) att skanna (t.ex. 80 eller 20-80)")
+    args = parser.parse_args()
+
+    if not args.host or not args.ports:
+        print("Fel: Både --host och --ports måste anges")
+        parser.print_help()
+        return
+    
+    print(f"Skannar {args.host} på port(ar) {args.ports}")
+    result = scan_hosts(args.host, args.ports)
+    
+    if result:
+        print("Resultat:")
+        for host in nm.all_hosts():
+            print('Värd : %s (%s)' % (host, nm[host].hostname()))
+            print('State : %s' % nm[host].state())
+            for proto in nm[host].all_protocols():
+                print('Protocol : %s' % proto)
+                lport = nm[host][proto].keys()
+                for port in lport:
+                    print ('port: %s\tstatus: %s\tnamn: %s\tprodukt: %s\tversion: %s' % (port, nm[host][proto][port]['state'], nm[host][proto][port]['name'], nm[host][proto][port]['product'], nm[host][proto][port]['version']))
+
 
 if __name__ == "__main__":
     host = ""
@@ -113,4 +135,4 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:
         main_menu(host, ports)
     else:
-        main(host, ports)
+        main()
