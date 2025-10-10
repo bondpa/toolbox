@@ -193,6 +193,22 @@ def main():
     
     args = parser.parse_args()
 
+    if args.identify:
+        if not args.hash:
+            print("Fel: --hash måste anges för att identifiera hashtyp")
+            parser.print_help()
+            return
+    
+        print(f"Identifierar hashtyp för: {args.hash}")
+        identified_type = check_hash_type(args.hash)
+    
+        if identified_type:
+            print(f"Identifierad hashtyp: {identified_type}")
+        else:
+            print("Kunde inte identifiera hashtypen")
+        return
+
+
     if args.crack:
         if not args.hash or not args.type:
             print("Fel: --hash och --type måste anges för att starta knäckning")
