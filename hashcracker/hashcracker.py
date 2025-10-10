@@ -190,6 +190,11 @@ def main():
     parser.add_argument("--crack", "-c", action="store_true", help="Starta knäckning")
     args = parser.parse_args()
 
+    if args.crack:
+        if not args.hash or not args.type:
+            print("Fel: --hash och --type måste anges för att starta knäckning")
+            parser.print_help()
+            return
 
 
 if __name__ == "__main__":
