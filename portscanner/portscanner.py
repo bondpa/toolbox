@@ -37,9 +37,19 @@ def save_to_textfile(string_to_save, filename):
         file.write(string_to_save)
 
 def load_from_file(filename):
-    with open(filename, 'r') as file:
-        data = json.load(file)
-    return data
+    try:
+        with open(filename, 'r') as file:
+            data = json.load(file)
+        return data
+    except FileNotFoundError:
+        print(f"Fel: Filen {filename} hittades inte.")
+        return None
+    except json.JSONDecodeError:
+        print(f"Fel: Filen {filename} är inte en giltig JSON-fil.")
+        return None
+    except Exception as e:
+        print(f"Fel vid läsning av fil: {e}")
+        return None
 
 def main_menu(host, ports):
     while True:
