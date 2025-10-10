@@ -4,7 +4,8 @@ from passlib.hash import nthash
 import bcrypt
 from argon2 import PasswordHasher
 import requests
-
+import argparse
+import sys
 
 def hash_password(password, hash_type="MD5"):
     if hash_type == "MD5":
@@ -74,7 +75,7 @@ def check_hash_type(hash_value):
         return None
 
 
-def main():
+def main_menu():
     # visar meny där vald typ av hash samt angivet hashvärde visas
     selected_hash = False
     hash_value = False
@@ -181,5 +182,13 @@ def main():
         else:
             print("Ogiltigt val, försök igen.")
 
+def main():
+    parser = argparse.ArgumentParser(description="Knäck hashade lösenord")
+    args = parser.parse_args()
+
+
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) == 1:
+        main_menu()
+    else:
+        main()
