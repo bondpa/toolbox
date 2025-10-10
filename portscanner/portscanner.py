@@ -40,6 +40,14 @@ def save_to_textfile(string_to_save, filename):
     with open(filename, 'w') as file:
         file.write(string_to_save)
 
+def save_to_textfile(string_to_save, filename):
+    try:
+        with open(filename, 'w') as file:
+            file.write(string_to_save)
+        print(f"Resultatet sparades i {filename}")
+    except Exception as e:
+        print(f"Ett fel uppstod då textfilen skulle sparas: {e}")
+
 def load_from_file(filename):
     try:
         with open(filename, 'r') as file:
