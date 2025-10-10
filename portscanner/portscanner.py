@@ -17,16 +17,16 @@ def scan_hosts(host, ports):
         result = nm.scan(hosts=host, ports=ports)
         return result
     except Exception as e:
-        print(f"Fel vid skanning: {e}")
+        print(f"{RED}Fel vid skanning: {e}{RESET}")
         return None
 
 def save_to_file(result, filename):
     try:
         with open(filename, 'w') as file:
             json.dump(result, file)
-        print(f"Resultatet sparades i {filename}")
+        print(f"{GREEN}✓ Resultatet sparades i {filename}{RESET}")
     except Exception as e:
-        print(f"Ett fel uppstod då filen skulle sparas: {e}")
+        print(f"{RED}Ett fel uppstod då filen skulle sparas: {e}{RESET}")
 
 def save_to_textfile(string_to_save, filename):
     with open(filename, 'w') as file:
@@ -36,9 +36,9 @@ def save_to_textfile(string_to_save, filename):
     try:
         with open(filename, 'w') as file:
             file.write(string_to_save)
-        print(f"Resultatet sparades i {filename}")
+        print(f"{GREEN}✓ Resultatet sparades i {filename}{RESET}")
     except Exception as e:
-        print(f"Ett fel uppstod då textfilen skulle sparas: {e}")
+        print(f"{RED}Ett fel uppstod då textfilen skulle sparas: {e}{RESET}")
 
 def load_from_file(filename):
     try:
@@ -46,18 +46,18 @@ def load_from_file(filename):
             data = json.load(file)
         return data
     except FileNotFoundError:
-        print(f"Fel: Filen {filename} hittades inte.")
+        print(f"{RED}Fel: Filen {filename} hittades inte.{RESET}")
         return None
     except json.JSONDecodeError:
-        print(f"Fel: Filen {filename} är inte en giltig JSON-fil.")
+        print(f"{RED}Fel: Filen {filename} är inte en giltig JSON-fil.{RESET}")
         return None
     except Exception as e:
-        print(f"Fel vid läsning av fil: {e}")
+        print(f"{RED}Fel vid läsning av fil: {e}{RESET}")
         return None
 
 def main_menu(host, ports):
     while True:
-        print("\n=== Portscanner ===")
+        print(f"\n{BLUE}=== Portscanner ==={RESET}")
         if host:
             print(f"{GREEN}✓ Vald värd: {host}{RESET}")
         else:
@@ -85,13 +85,13 @@ def main_menu(host, ports):
             data = load_from_file(filename)
             host = data.get('host', '')
             ports = data.get('ports', '')
-            print(f"Laddade värd: {host}")
-            print(f"Laddade portar: {ports}")
+            print(f"{GREEN}✓ Laddade värd: {host}{RESET}")
+            print(f"{GREEN}✓ Laddade portar: {ports}{RESET}")
         elif choice == '4':
             if host and ports:
                 print(f"Startar skanning på värd: {host} av port(ar): {ports}")
                 result = scan_hosts(host, ports)
-                print("Resultat:") 
+                print(f"{GREEN}Resultat:{RESET}")
                 for host in nm.all_hosts():
                     print('Värd : %s (%s)' % (host, nm[host].hostname()))
                     print('State : %s' % nm[host].state())
@@ -101,14 +101,14 @@ def main_menu(host, ports):
                         for port in lport:
                             print ('port: %s\tstatus: %s\tnamn: %s\tprodukt: %s\tversion: %s' % (port, nm[host][proto][port]['state'], nm[host][proto][port]['name'], nm[host][proto][port]['product'], nm[host][proto][port]['version']))
             else:
-                print("Värd och portar måste anges före skanning.")
+                print(f"{YELLOW}⚠ Värd och portar måste anges före skanning.{RESET}")
         elif choice == '5':
             if result:
                 filename = input("Ange JSON-fil för att spara resultatet: ")
                 save_to_file(result, filename)
                 print(f"Resultatet sparades i {filename}")
             else:
-                print("Inget resultat att spara. Kör en skanning först.")
+                print(f"{YELLOW}⚠ Inget resultat att spara. Kör en skanning först.{RESET}")
         elif choice == '6':
             if result:
                 filename = input("Ange textfil för att spara resultatet: ")
@@ -124,12 +124,12 @@ def main_menu(host, ports):
                 save_to_textfile(string_to_save, filename)
                 print(f"Resultatet sparades i {filename}")
             else:
-                print("Inget resultat att spara. Kör en skanning först.")
+                print(f"{YELLOW}⚠ Inget resultat att spara. Kör en skanning först.{RESET}")
         elif choice == '0':
             print("Avslutar...")
             break
         else:
-            print("Ogiltigt val. Försök igen.")
+            print(f"{RED}Ogiltigt val. Försök igen.{RESET}")
 
 def main():
     parser = argparse.ArgumentParser(description="Skanna portar på en värd")
